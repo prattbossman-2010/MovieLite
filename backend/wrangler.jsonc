@@ -1,5 +1,5 @@
 {
-  "name": "movielite-backend",
+  "name": "movielite",
   "main": "src/index.js",
   "compatibility_date": "2026-10-03"
 }
