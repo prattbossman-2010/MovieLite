@@ -11,8 +11,19 @@ authorized providers can be added later.
 ========================================
 */
 
+
+/*
+========================================
+API CONFIGURATION
+========================================
+*/
+
 const API_BASE =
     "https://archive.org";
+
+
+const DOWNLOAD_API_BASE =
+    "https://movielite.bossmanp16.workers.dev";
 
 
 /*
@@ -768,8 +779,28 @@ function renderSource(
     container
 ) {
 
-    const url =
-        buildDownloadURL(
+    /*
+    ------------------------------------
+    Watch still uses the original
+    Internet Archive URL.
+    ------------------------------------
+    */
+
+    const watchURL =
+        buildArchiveDownloadURL(
+            identifier,
+            file.name
+        );
+
+
+    /*
+    ------------------------------------
+    Download uses our Cloudflare Worker.
+    ------------------------------------
+    */
+
+    const downloadURL =
+        buildBackendDownloadURL(
             identifier,
             file.name
         );
@@ -847,7 +878,7 @@ function renderSource(
             function () {
 
                 playMovie(
-                    url,
+                    watchURL,
                     state.currentMovie?.title ||
                     identifier
                 );
@@ -865,7 +896,7 @@ function renderSource(
             function () {
 
                 downloadMovie(
-                    url,
+                    downloadURL,
                     file.name
                 );
 
@@ -885,10 +916,20 @@ function renderSource(
 DOWNLOAD
 ========================================
 
-The browser-only download attempt is
-not reliable for cross-origin media.
+The browser does NOT download directly
+from Internet Archive anymore.
 
-The backend will replace this function.
+Instead:
+
+MovieLite
+   ↓
+Cloudflare Worker
+   ↓
+Internet Archive verification
+   ↓
+Authorized video stream
+   ↓
+Browser download
 ========================================
 */
 
@@ -897,10 +938,53 @@ function downloadMovie(
     filename
 ) {
 
-    alert(
-        "Download service is not connected yet.\n\n" +
-        "The backend download system will be added next."
-    );
+    if (!url) {
+
+        alert(
+            "Download URL could not be created."
+        );
+
+        return;
+
+    }
+
+
+    /*
+    ------------------------------------
+    Open the Worker endpoint directly.
+
+    The Worker sends:
+    Content-Disposition: attachment
+
+    so the browser treats the response
+    as a download rather than trying to
+    play/open the video.
+    ------------------------------------
+    */
+
+    const downloadWindow =
+        window.open(
+            url,
+            "_blank"
+        );
+
+
+    /*
+    ------------------------------------
+    Popup blocking fallback.
+
+    Because this function is called
+    directly from the Download button
+    click, most browsers will allow it.
+    ------------------------------------
+    */
+
+    if (!downloadWindow) {
+
+        window.location.href =
+            url;
+
+    }
 
 }
 
@@ -1347,11 +1431,14 @@ function getPoster(
 
 /*
 ========================================
-SOURCE URL
+ARCHIVE WATCH URL
+========================================
+
+Used only by the Watch/player system.
 ========================================
 */
 
-function buildDownloadURL(
+function buildArchiveDownloadURL(
     identifier,
     filename
 ) {
@@ -1377,6 +1464,46 @@ function buildDownloadURL(
             )
             .join("/")
 
+    );
+
+}
+
+
+/*
+========================================
+BACKEND DOWNLOAD URL
+========================================
+
+The browser sends only:
+
+identifier
+file
+
+The Worker constructs the trusted
+Internet Archive URL itself.
+========================================
+*/
+
+function buildBackendDownloadURL(
+    identifier,
+    filename
+) {
+
+    const params =
+        new URLSearchParams({
+
+            identifier:
+                identifier,
+
+            file:
+                filename
+
+        });
+
+
+    return (
+        `${DOWNLOAD_API_BASE}/api/download?` +
+        params.toString()
     );
 
 }
