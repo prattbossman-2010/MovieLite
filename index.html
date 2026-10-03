@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MovieLite</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="brand">MovieLite</div>
+
+    <button id="libraryButton" class="nav-button">
+        My Library
+    </button>
+</header>
+
+
+<main>
+
+    <!-- SEARCH -->
+    <section id="searchSection" class="search-section">
+
+        <h1>Find a movie</h1>
+
+        <form id="searchForm">
+
+            <input
+                id="searchInput"
+                type="search"
+                placeholder="Search movies..."
+                autocomplete="off"
+                required
+            >
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- STATUS -->
+    <div id="status" class="status"></div>
+
+
+    <!-- RESULTS -->
+    <section id="resultsSection">
+
+        <div class="section-header">
+            <h2 id="resultsTitle">Movies</h2>
+        </div>
+
+        <div id="results" class="movie-grid"></div>
+
+    </section>
+
+
+    <!-- MOVIE DETAILS -->
+    <section id="detailsSection" class="details hidden">
+
+        <button id="backButton" class="back-button">
+            ← Back
+        </button>
+
+        <div id="detailsContent"></div>
+
+    </section>
+
+
+    <!-- PLAYER -->
+    <section id="playerSection" class="player-section hidden">
+
+        <button id="closePlayerButton" class="back-button">
+            ← Close player
+        </button>
+
+        <video
+            id="videoPlayer"
+            controls
+            playsinline
+        ></video>
+
+        <h2 id="playerTitle"></h2>
+
+    </section>
+
+
+    <!-- LIBRARY -->
+    <section id="librarySection" class="library-section hidden">
+
+        <button id="closeLibraryButton" class="back-button">
+            ← Back
+        </button>
+
+        <h2>My Library</h2>
+
+        <div id="library" class="movie-grid"></div>
+
+    </section>
+
+</main>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>

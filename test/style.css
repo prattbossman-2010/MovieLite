@@ -1,0 +1,359 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #101010;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.topbar {
+    height: 60px;
+    padding: 0 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #181818;
+    border-bottom: 1px solid #303030;
+
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.brand {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-button,
+.search-section button {
+    border: 0;
+    background: #ffffff;
+    color: #000000;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+main {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+.search-section {
+    padding: 30px 0;
+}
+
+.search-section h1 {
+    margin-top: 0;
+    font-size: 28px;
+}
+
+#searchForm {
+    display: flex;
+    gap: 10px;
+}
+
+#searchInput {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 13px 15px;
+
+    background: #1c1c1c;
+    color: #ffffff;
+
+    border: 1px solid #444;
+    border-radius: 6px;
+
+    outline: none;
+}
+
+#searchInput:focus {
+    border-color: #ffffff;
+}
+
+.status {
+    min-height: 25px;
+    margin-bottom: 15px;
+    color: #bbbbbb;
+}
+
+.section-header {
+    margin-bottom: 15px;
+}
+
+.section-header h2 {
+    margin: 0;
+}
+
+.movie-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(160px, 1fr));
+
+    gap: 16px;
+}
+
+.movie-card {
+    background: #1a1a1a;
+    border: 1px solid #2c2c2c;
+    border-radius: 7px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-2px);
+    border-color: #555;
+}
+
+.movie-poster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+
+    object-fit: cover;
+
+    background: #252525;
+}
+
+.no-poster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+
+    background: #252525;
+    color: #888;
+
+    text-align: center;
+}
+
+.movie-info {
+    padding: 12px;
+}
+
+.movie-title {
+    margin: 0 0 7px;
+
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.movie-meta {
+    color: #999;
+    font-size: 13px;
+}
+
+.card-button {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 9px;
+
+    border: 0;
+    border-radius: 5px;
+
+    background: #303030;
+    color: #ffffff;
+}
+
+.card-button:hover {
+    background: #444;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.details {
+    margin-top: 20px;
+}
+
+.back-button {
+    margin-bottom: 20px;
+
+    padding: 9px 14px;
+
+    background: #252525;
+    color: #ffffff;
+
+    border: 1px solid #444;
+    border-radius: 5px;
+}
+
+.details-layout {
+    display: grid;
+
+    grid-template-columns: 250px 1fr;
+
+    gap: 25px;
+}
+
+.details-poster {
+    width: 100%;
+    max-width: 250px;
+
+    border-radius: 6px;
+}
+
+.details h1 {
+    margin-top: 0;
+}
+
+.description {
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+.source-list {
+    margin-top: 25px;
+}
+
+.source {
+    padding: 14px;
+
+    margin-bottom: 10px;
+
+    background: #1a1a1a;
+
+    border: 1px solid #333;
+    border-radius: 6px;
+}
+
+.source-name {
+    font-weight: bold;
+}
+
+.source-meta {
+    margin-top: 5px;
+
+    color: #999;
+    font-size: 13px;
+}
+
+.source-actions {
+    margin-top: 12px;
+
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.source-actions button,
+.source-actions a {
+    display: inline-block;
+
+    padding: 9px 12px;
+
+    border: 0;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #000000;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+.player-section {
+    margin-top: 20px;
+}
+
+#videoPlayer {
+    display: block;
+
+    width: 100%;
+    max-height: 70vh;
+
+    background: #000;
+
+    border-radius: 6px;
+}
+
+#playerTitle {
+    margin-top: 12px;
+}
+
+.library-section {
+    margin-top: 20px;
+}
+
+.empty {
+    padding: 30px;
+
+    background: #181818;
+
+    border: 1px solid #292929;
+    border-radius: 6px;
+
+    color: #888;
+
+    text-align: center;
+}
+
+@media (max-width: 650px) {
+
+    main {
+        padding: 14px;
+    }
+
+    .topbar {
+        padding: 0 14px;
+    }
+
+    .details-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .details-poster {
+        max-width: 180px;
+    }
+
+    #searchForm {
+        flex-direction: column;
+    }
+
+    #searchForm button {
+        width: 100%;
+    }
+
+    .movie-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 10px;
+    }
+
+    .movie-info {
+        padding: 9px;
+    }
+}
